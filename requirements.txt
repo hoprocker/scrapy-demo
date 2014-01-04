@@ -1,2 +1,5 @@
+lxml
+zope.interface
 scrapy
-zope.interface --upgrade
+redis
+flask
