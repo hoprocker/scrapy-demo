@@ -5,10 +5,13 @@
 
 from scrapy.item import Item, Field
 
-class RealtortestItem(Item):
-    address = Field()
+class ListingItem(Item):
+    street_address = Field()
+    city = Field()
+    region = Field()
+    postal = Field()
     price = Field()
-    bedrooms = Field()
-    bathrooms = Field()
+    beds = Field()
+    baths = Field()
     sqft = Field()
-    prop_type = Field()
+    property_type = Field()

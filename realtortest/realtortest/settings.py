@@ -11,5 +11,7 @@ BOT_NAME = 'realtortest'
 SPIDER_MODULES = ['realtortest.spiders']
 NEWSPIDER_MODULE = 'realtortest.spiders'
 
+ITEM_PIPELINES = ['realtortest.pipelines.RealtortestPipeline',]
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'realtortest (+http://www.yourdomain.com)'
