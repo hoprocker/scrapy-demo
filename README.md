@@ -12,4 +12,4 @@ AWS stock Ubuntu 13:10 image, 64-bit (can work w/ 32-bit also, check bootstrap.s
 * edit the variables at the top of `deploy.sh`
 * make sure that you can 'sudo' w/ the user on the remote machine
 * run `./deploy.sh`
-* check out the page on http://<insert_ip>:9097
+* check out the page on `http://insert-ip:9097`
