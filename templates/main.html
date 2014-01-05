@@ -1,0 +1,15 @@
+<html>
+  <body>
+    {% if job_id %}
+    <p><b>job submitted, job id {{job_id}}</b></p>
+    {% endif %}
+
+    <p>all projects: {{projects}}</p>
+    <P>project: {{project}}</p>
+    <p>jobs: {{jobs}}</p>
+    <p>spiders: {{spiders}}</p>
+    <p>data: {{data}}</p>
+    <form action="/schedule" method="get"><button type="submit">run scraping job</button></form>
+  </body>
+</html>
+
