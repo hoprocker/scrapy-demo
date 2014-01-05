@@ -4,5 +4,4 @@ scrapy
 redis
 flask
 Twisted
-scrapyd
 requests

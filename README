@@ -1,11 +1,16 @@
-A simple demonstration of scrapy and Flask. Downloads some data from realtor.com, stores it, makes it available on a simple flask website. Runs in its own virtualenv, but *does* overwrite system variables (a fine candidate for a Docker container!).
+A simple demonstration of scrapy and Flask. Downloads some data from realtor.com, stores it, makes it available on a simple flask website. *DOES* overwrite system variables, so use virtualization (a fine candidate for a Docker container!)!
 
 Very generic right now, just stores every listing as a hash in a Redis database and pulls it every time.
 
-Test with:
+NOTE this kills whatever is running on port 9097!!!
+
+Tested with:
 * AWS stock Ubuntu 13:10 image, 64-bit
 
 To deploy:
+* pull down the code locally
 * edit the variables at the top of "deploy.sh"
 * make sure that you can 'sudo' w/ the user on the remote machine
 * run "./deploy.sh"
+
+NOTE this application makes *global* changes! Run virtualized!
