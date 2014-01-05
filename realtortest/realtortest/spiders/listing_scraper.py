@@ -11,12 +11,14 @@ class ListingSpider(BaseSpider):
         log.msg("response recieved from %s" % (resp.url))
         
         sel = Selector(resp)
-        for listing_sel in sel.xpath("//div[@class='listing-group']//div[@class='listing-wrap']"):
+        for listing_sel in sel.xpath("//*[@class='listing-summary-wrapper group']"):
             item = ListingItem()
             for f in item.fields:
                 xpath_sel = "listing-%s" % (f.replace("_", "-"))
-                val = listing_sel.xpath("//span[@class='%s']/text()" % xpath_sel)[0].extract().strip()
-                log.msg("item: %s --> %s" % (xpath_sel, val))
-                item[f] = val
+                fld = listing_sel.xpath("ul//*[@class='%s']/text()" % xpath_sel)
+                if len(fld) > 0:
+                    val = fld[0].extract().strip()
+                    log.msg("item: %s --> %s" % (xpath_sel, val))
+                    item[f] = val
             yield item
 
