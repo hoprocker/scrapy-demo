@@ -3,3 +3,6 @@ zope.interface
 scrapy
 redis
 flask
+Twisted
+scrapyd
+requests
