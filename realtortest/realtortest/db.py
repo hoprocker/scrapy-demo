@@ -13,6 +13,6 @@ class Datastore(object):
                                        item['region'])).hexdigest()
         self.conn.hmset(_id, item)
     def list(self):
-        return map(lambda x: self.conn.hmget(x), self.conn.keys())
+        return map(lambda x: self.conn.hgetall(x), self.conn.keys())
 
 datastore = Datastore()
