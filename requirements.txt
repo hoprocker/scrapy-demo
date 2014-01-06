@@ -1,6 +1,7 @@
 lxml
 zope.interface
-scrapy
+#scrapy
+git+git://github.com/scrapy/scrapy@master#egg=scrapy
 redis
 flask
 Twisted
