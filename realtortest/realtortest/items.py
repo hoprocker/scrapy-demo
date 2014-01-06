@@ -9,7 +9,7 @@ from scrapy.contrib.loader.processor import TakeFirst, Compose
 from types import ListType, TupleType
 import re
 
-DEBUG = False
+DEBUG = True
 
 class ListingItem(Item):
     street_address = Field()

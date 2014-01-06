@@ -10,21 +10,22 @@ class PagerExtractor(SgmlLinkExtractor):
     pages_followed = []
 
     def extract_links(self, resp):
-        base_http = re.search("^(http[s]?://[^\/]*)/.*", resp.url).groups()
+        base_http = re.search("^([a-z]+://[\/]?[^\/]*)/", resp.url).groups()
         if base_http:
             base_http = base_http[0]
 
         if len(self.pages_followed) < 1:
             ## first time, add this page to list
-            first_page = re.match("http[s]?://[^\/]*(.*)$", resp.url).groups()
+            first_page = re.match("^[a-z]+://[\/]?[^\/]*(/.*)$", resp.url).groups()
             if first_page:
                 log.msg("adding %s to followed" % first_page[0])
                 self.pages_followed.append(first_page[0])
-
         sel = Selector(resp)
-        links = sel.xpath("//ol[@class='pagination pagination-pos-b']/li/a[@class='paginate ']/@href").extract()
+        links = sel.xpath("//ol[contains(@class,'pagination pagination-pos-b')]/li/a[contains(@class,'paginate')]/@href").extract()
+
         ## remove links we've followed already
         [links.pop(links.index(l)) for l in self.pages_followed if l in links]
+
         ## now add the rest
         log.msg("adding %s to followed" % (links,))
         self.pages_followed.extend(links) 
