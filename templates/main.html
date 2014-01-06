@@ -1,15 +1,37 @@
 <html>
   <body>
+    <h3>scrapy test</h3>
     {% if job_id %}
     <p><b>job submitted, job id {{job_id}}</b></p>
     {% endif %}
-
-    <p>all projects: {{projects}}</p>
     <P>project: {{project}}</p>
+    <p>all projects: {{projects}}</p>
     <p>jobs: {{jobs}}</p>
     <p>spiders: {{spiders}}</p>
-    <p>data: {{data}}</p>
     <form action="/schedule" method="get"><button type="submit">run scraping job</button></form>
+    <p>aggregated stats</p>
+    <table>
+      <tr><td>total units</td><td>{{price_sqft.all|length}}</td></tr>
+      <tr><td>price/sqft (mean)</td><td>{{price_sqft.mean}}</td></tr>
+      <tr><td>price/sqft (median)</td><td>{{price_sqft.med}}</td></tr>
+    </table>
+    <p>data:</p>
+    <table>
+      <tr>
+        {% for f in fields %}
+        <th>{{f}}</th>
+        {% endfor %}
+        <th>price/sqft</th>
+      </tr>
+      {% for d in data %}
+      <tr>
+        {% for f in fields %}
+        <td>{{d[f]}}</td>
+        {% endfor %}
+        <td>{{d["per_sqft"]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
 
