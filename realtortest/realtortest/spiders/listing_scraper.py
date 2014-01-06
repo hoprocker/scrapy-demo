@@ -1,13 +1,22 @@
 from scrapy.spider import BaseSpider
+from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy import log
+from scrapy.http import Request
 from scrapy.selector import Selector
 from realtortest.items import ListingItem
+from realtortest.extractor import PagerExtractor
+import re
 
-class ListingSpider(BaseSpider):
+class ListingSpider(CrawlSpider):
     name = "realtor"
-    start_urls = ["http://www.realtor.com/realestateandhomes-search/Sonora_CA/sby-6?pgsz=50",]
+    start_urls = ["http://www.realtor.com/realestateandhomes-search/Sonora_CA",]
 
-    def parse(self, resp):
+    rules = (Rule(link_extractor=PagerExtractor(), callback="parse_page"),)
+
+    def parse_page(self, resp):
+        base_http = re.search("^(http[s]?://[^\/]*)/.*", resp.url).groups()
+        if base_http:
+            base_http = base_http[0]
         log.msg("response recieved from %s" % (resp.url))
         
         sel = Selector(resp)
@@ -22,3 +31,6 @@ class ListingSpider(BaseSpider):
                     item[f] = val
             yield item
 
+        for link in sel.xpath("//ol[@class='pagination pagination-pos-b']/li/a[@class='paginate ']/@href").extract():
+            log.msg("returning %s%s to follow" % (base_http,link))
+            yield Request("%s%s" % (base_http,link))
