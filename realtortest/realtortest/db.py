@@ -8,7 +8,7 @@ class Datastore(object):
         try:
             self.conn = Redis(host="127.0.0.1", db=0)
         except:
-            log.msg("WARNING could not connecto to redis")
+            log.msg("WARNING could not connect to redis")
             self.conn = None  ## for testing
     def store(self, item):
         """
