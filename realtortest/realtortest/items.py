@@ -9,7 +9,7 @@ from scrapy.contrib.loader.processor import TakeFirst, Compose
 from types import ListType, TupleType
 import re
 
-DEBUG = True
+DEBUG = False
 
 class ListingItem(Item):
     street_address = Field()
@@ -56,7 +56,7 @@ def parse_baths(val):
     if type(val) in [ListType, TupleType] and len(val) > 0:
         val = val[0]
     if isinstance(val, basestring):
-        real_val = re.search("([0-9.]+)[a-z><\/]+ Full", val)
+        real_val = re.search("([0-9.]+)[a-z><\/]+ (Full|Bath)", val)
         if real_val:
             if DEBUG:
                 print "real_val: %s" % (real_val.groups(),)
